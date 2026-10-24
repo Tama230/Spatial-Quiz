@@ -1,0 +1,174 @@
+<html>
+    <head>
+    </head>
+
+    <body bgcolor="#7ef2cd">
+<div align="left">
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+  <tr><br><hr>
+    <td width="50%"><form method="POST" name="instantquiz">
+      <table border="0" width="100%" cellspacing="20" cellpadding="3">
+        <!-- Judul dan Keterangan di bawahnya -->
+        <caption>
+            <strong style="font-size: 2em; color: #0066cc;">&#127759; Spatial Quiz &#127759;</strong><br>
+            <span style="font-size: 1em; color: #555; font-style: italic; font-weight: normal;">This quiz aims to train spatial knowledge about world capital cities.</span>
+        </caption><br>
+        <tr>
+          <td width="100%"><div align="center"><center><p><textarea rows="7" name="thequestion"
+          cols="60" wrap="virtual" style="font-size: 18px;"></textarea></td>
+        </tr>
+        <tr align="center">
+          <td width="50%"><div align="center"><center><p><strong>Solution: </strong><input
+          type="text" name="thesolution" size="35"></td>
+        </tr>
+        <tr align="center">
+          <td width="100%"><div align="center"><center><p><strong>Your response:</strong> <select
+          name="theresponse" size="1" onChange="responses()">
+            <option value="-----">----</option>
+            <option value="a">a</option>
+            <option value="b">b</option>
+            <option value="c">c</option>
+            <option value="d">d</option>
+          </select> <input type="button" value="&lt;&lt;Back" name="B1"
+          onClick="if (whichone&gt;1){whichone--;generatequestions()}"> <input type="button"
+          value="Next&gt;&gt;" name="B2"
+          onClick="if (whichone&lt;=total){whichone++;generatequestions()}"><br>
+          <small><a href="#" onClick="whichone=1;generatequestions();return false">Start Over</a> </small><input
+          type="checkbox" name="cmode" value="ON"><small>Cheat Mode</small><hr><p align="center"><font face="arial" size="-2">This quiz created by Tama</font><br> <font face="arial, helvetica" size="-2"><a href="http://javascriptkit.com">JavaScript Kit</a></font></p></td>
+        </tr>
+      </table>
+    </form>
+    </td>
+  </tr>
+</table>
+</div>
+
+<script>
+// Pengaturan Total Soal
+var total=10
+var question=new Array()
+for (i=1;i<=total+1;i++){
+temp="choice"+i+"=new Array()"
+eval(temp)
+}
+var solution=new Array()
+
+// Kata-kata Penyemangat
+var compliments=new Array()
+compliments[0]="Brilliant!"
+compliments[1]="Spot on!"
+compliments[2]="Nailed it!"
+compliments[3]="Outstanding!"
+compliments[4]="Keep it up!"
+compliments[5]="You're crushing it!"
+compliments[6]="Fantastic job!"
+compliments[7]="Way to go!"
+compliments[8]="Impressive!"
+compliments[9]="Top-notch!"
+compliments[10]="Brilliant mind!"
+
+// Daftar Pertanyaan & Pilihan Ganda
+question[1]="What is the capital of Australia?"
+choice1[1]="Canberra"
+choice1[2]="Sydney"
+choice1[3]="Melbourne"
+choice1[4]="Brisbane"
+
+question[2]="What is the capital of Canada?"
+choice2[1]="Toronto"
+choice2[2]="Ottawa"
+choice2[3]="Vancouver"
+choice2[4]="Montreal"
+
+question[3]="What is the capital of Japan?"
+choice3[1]="Osaka"
+choice3[2]="Kyoto"
+choice3[3]="Tokyo"
+choice3[4]="Hiroshima"
+
+question[4]="What is the capital of Egypt?"
+choice4[1]="Alexandria"
+choice4[2]="Cairo"
+choice4[3]="Giza"
+choice4[4]="Luxor"
+
+question[5]="What is the capital of Argentina?"
+choice5[1]="Buenos Aires"
+choice5[2]="Cordoba"
+choice5[3]="Rosario"
+choice5[4]="Mendoza"
+
+question[6]="What is the capital of South Korea?"
+choice6[1]="Busan"
+choice6[2]="Incheon"
+choice6[3]="Seoul"
+choice6[4]="Daegu"
+
+question[7]="What is the capital of New Zealand?"
+choice7[1]="Auckland"
+choice7[2]="Wellington"
+choice7[3]="Christchurch"
+choice7[4]="Hamilton"
+
+question[8]="What is the capital of Thailand?"
+choice8[1]="Chiang Mai"
+choice8[2]="Phuket"
+choice8[3]="Pattaya"
+choice8[4]="Bangkok"
+
+question[9]="What is the capital of Germany?"
+choice9[1]="Munich"
+choice9[2]="Berlin"
+choice9[3]="Frankfurt"
+choice9[4]="Hamburg"
+
+question[10]="What is the capital of Italy?"
+choice10[1]="Milan"
+choice10[2]="Venice"
+choice10[3]="Florence"
+choice10[4]="Rome"
+
+// Kunci Jawaban
+solution[1]="a"
+solution[2]="b"
+solution[3]="c"
+solution[4]="b"
+solution[5]="a"
+solution[6]="c"
+solution[7]="b"
+solution[8]="d"
+solution[9]="b"
+solution[10]="d"
+
+// Fungsi Logika Kuis
+var whichone=1
+var tempmn=document.instantquiz.thequestion
+function generatequestions(){
+document.instantquiz.theresponse.selectedIndex=0
+if (!document.instantquiz.cmode.checked||whichone>=total+1||whichone<=0)
+document.instantquiz.thesolution.value=''
+if (whichone>=total+1)
+tempmn.value="End of quiz"
+else{
+tempmn.value=whichone+") "+question[whichone]+"\n\n"+"a) "+eval('choice'+whichone+'[1]')+"\n"+"b) "+eval('choice'+whichone+'[2]')+"\n"+"c) "+eval('choice'+whichone+'[3]')+"\n"+"d) "+eval('choice'+whichone+'[4]')
+if (document.instantquiz.cmode.checked)
+document.instantquiz.thesolution.value=solution[whichone]
+}
+}
+
+function responses(){
+var temp2=document.instantquiz.theresponse
+var temp3=temp2.options[temp2.selectedIndex].text
+if (temp3!=solution[whichone]&&temp2.selectedIndex!=0)
+document.instantquiz.thesolution.value="Sorry, the correct answer is "+solution[whichone]
+else if(temp2.selectedIndex!=0)
+document.instantquiz.thesolution.value=compliments[Math.round(Math.random()*compliments.length-1)]
+}
+
+generatequestions()
+</script>
+
+    </body>
+
+<html>
